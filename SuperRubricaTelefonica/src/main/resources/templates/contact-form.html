@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Nuovo contatto</title>
+<link rel="stylesheet" 
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
+	crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/main.css}" />
+</head>
+<body>
+  <form th:action="@{/contacts/new}" th:object="${contactForm}" method="post">
+    <h2>Nuovo contatto</h2>
+    <div class="form-group"
+    	th:classappend="${#fields.hasErrors('firstName')}? has-error">
+      <label>Nome</label> <input th:field="*{firstName}" type="text" required="required" class="form-control" />
+      <div th:if="${#fields.hasErrors('firstName')}" class="form-error">
+        <span th:errors="*{firstName}" class="text-danger">
+      </div>
+    </div>
+    <div class="form-group"
+    	th:classappend="${#fields.hasErrors('lastName')}? has-error">
+      <label>Cognome</label> <input th:field="*{lastName}" type="text" required="required" class="form-control" />
+      <div th:if="${#fields.hasErrors('lastName')}" class="form-error">
+        <span th:errors="*{lastName}" class="text-danger">
+      </div>
+    </div>
+    <div class="form-group"
+    	th:classappend="${#fields.hasErrors('phone')}? has-error">
+      <label>Telefono</label> <input th:field="*{phone}" type="text" required="required" class="form-control" />
+      <div th:if="${#fields.hasErrors('phone')}" class="form-error">
+        <span th:errors="*{phone}" class="text-danger">
+      </div>
+    </div>
+    <div class="form-group"
+    	th:classappend="${#fields.hasErrors('email')}? has-error">
+      <label>Email</label> <input th:field="*{email}" type="email" class="form-control" required="required" />
+      <div th:if="${#fields.hasErrors('email')}" class="form-error">
+        <span th:errors="*{email}" class="text-danger">
+      </div>
+    </div>
+    <div class="form-group">
+      <input class="btn btn-primary" type="submit" value="Salva" />
+    </div>
+  </form>
+</body>
+</html>
