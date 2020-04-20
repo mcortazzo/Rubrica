@@ -33,7 +33,7 @@ public class ContactRepository {
 	}
 	
 	public Contact create(Contact contact) {
-		String sql = "insert into contacts (first_name, last_name, phone, email) value (?, ?, ?, ?)";
+		String sql = "insert into contacts (first_name, last_name, phone, email) values (?, ?, ?, ?)";
 		KeyHolder keyHolder =new GeneratedKeyHolder();
 		jdbcTemplate.update(new PreparedStatementCreator() {
 			
@@ -42,8 +42,8 @@ public class ContactRepository {
 				PreparedStatement preparedStatement = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 				preparedStatement.setString(1, contact.getFirstName());
 				preparedStatement.setString(2, contact.getLastName());
-				preparedStatement.setString(3, contact.getEmail());
-				preparedStatement.setString(4, contact.getPhone());
+				preparedStatement.setString(3, contact.getPhone());
+				preparedStatement.setString(4, contact.getEmail());
 				return preparedStatement;
 			}
 		},keyHolder);

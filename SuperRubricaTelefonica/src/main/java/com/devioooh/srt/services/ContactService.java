@@ -58,7 +58,7 @@ public class ContactService {
 		contactDetail.setFirstName(c.getFirstName());
 		contactDetail.setLastName(c.getLastName());
 		contactDetail.setPhone(c.getPhone());
-		contactDetail.setPhone(c.getPhone());
+		contactDetail.setEmail(c.getEmail());
 		return contactDetail;
 	}
 
