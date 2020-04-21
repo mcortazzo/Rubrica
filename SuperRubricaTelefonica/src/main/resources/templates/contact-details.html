@@ -11,6 +11,11 @@
 <link rel="stylesheet" th:href="@{/main.css}" />
 </head>
 <body>
+	<div th:if="${newContactFlag != null}"
+	  class="alert alert-success alert-dismissable">
+	  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+	  Contatto creato correttamente
+	</div>
   <div class="dtl-body">
     <h2 th:text="${contact.firstName + ' ' + contact.lastName}"></h2>
     <div>

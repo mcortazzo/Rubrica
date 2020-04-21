@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.devioooh.srt.model.ContactDetail;
 import com.devioooh.srt.model.ContactForm;
@@ -60,12 +61,13 @@ public class ContactController {
 	}
 	
 	@PostMapping("/new")
-	public String submitNewContact(@Valid @ModelAttribute ContactForm contactForm,BindingResult bindingResult, Model model) {
+	public String submitNewContact(@Valid @ModelAttribute ContactForm contactForm,BindingResult bindingResult, RedirectAttributes attributes) {
 		if (bindingResult.hasErrors()){
 			return"contact-form";
 		}
-		model.addAttribute("contact", contactService.save(contactForm));
-		return "contact-details";
+		ContactDetail contactDetail = contactService.save(contactForm);
+		attributes.addFlashAttribute("newContact", true);
+		return "redirect:/contact/"+contactDetail.getId();
 	}
 	
 	@GetMapping("/{id}")
@@ -73,6 +75,9 @@ public class ContactController {
 		ContactDetail contact=contactService.getDetailById(id.longValue());
 		if(contact == null)
 			return "redirect:/";
+		Object newContact = model.asMap().get("newContact");
+		if(newContact != null && (boolean)newContact )
+			model.addAttribute("newContactFlag", true);
 		model.addAttribute("contact", contact);
 		return "contact-details";
 	}
